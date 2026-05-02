@@ -46,6 +46,12 @@ function srm_teacher_login_redirect($redirect_to, $request, $user) {
     return $redirect_to;
 }
 
+wp_enqueue_style(
+    'my-plugin-style',
+    plugin_dir_url(__FILE__) . 'assets/css/dashboard.css',
+    [],
+    filemtime(plugin_dir_path(__FILE__) . 'assets/css/dashboard.css')
+);
 
 // Admin Pages
 add_action('admin_menu', 'srm_admin_menu');

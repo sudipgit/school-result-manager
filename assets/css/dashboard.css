@@ -1,0 +1,1528 @@
+/* ================================================================
+   RTNB School — Teacher Dashboard CSS v1.0
+   Site: https://rtnb.edu.bd
+   Page: /management/dashboard/ and related teacher pages
+
+   HOW TO INSTALL:
+   Go to WordPress Admin → Appearance → Customize →
+   Additional CSS → paste this entire file → Publish.
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ── Root variables ───────────────────────────────────────────── */
+:root {
+  --db-navy:     #0f2a4a;
+  --db-teal:     #0d7a6b;
+  --db-teal-l:   #e6f5f3;
+  --db-teal-m:   #b2e0d9;
+  --db-gold:     #c8922a;
+  --db-gold-l:   #fdf3e0;
+  --db-gold-b:   #f0cfa0;
+  --db-indigo:   #3730a3;
+  --db-indigo-l: #eef2ff;
+  --db-indigo-b: #c7d2fe;
+  --db-bg:       #f4f6fb;
+  --db-white:    #ffffff;
+  --db-border:   #e4e9f0;
+  --db-text:     #1a2940;
+  --db-muted:    #6b7a92;
+  --db-radius:   14px;
+  --db-radius-s: 8px;
+  --db-shadow:   0 2px 8px rgba(15,42,74,.07), 0 0 1px rgba(15,42,74,.08);
+  --db-shadow-l: 0 8px 28px rgba(15,42,74,.12), 0 0 1px rgba(15,42,74,.08);
+  --db-sidebar:  260px;
+}
+
+/* ── Page body ────────────────────────────────────────────────── */
+body {
+  background: var(--db-bg) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* ================================================================
+   MAIN LAYOUT GRID
+   ================================================================ */
+
+.dashboard-layout {
+  display: grid !important;
+  grid-template-columns: var(--db-sidebar) 1fr !important;
+  grid-template-rows: auto 1fr !important;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content" !important;
+  gap: 0 22px !important;
+  max-width: 1300px;
+  margin: 0 auto !important;
+  padding: 28px 24px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--db-text);
+  box-sizing: border-box;
+  width:100%;
+}
+
+/* ── Top exam heading ─────────────────────────────────────────── */
+.dashboard-layout > h2:first-child {
+  grid-area: header !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy) !important;
+  margin: 0 0 18px !important;
+  padding: 16px 22px !important;
+  background: var(--db-white) !important;
+  border-radius: var(--db-radius) !important;
+  box-shadow: var(--db-shadow) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  letter-spacing: -0.3px !important;
+  border-left: 4px solid var(--db-teal) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+.dashboard-layout > h2:first-child::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background: var(--db-gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   SIDEBAR
+   ================================================================ */
+
+.d-sidebar {
+  grid-area: sidebar !important;
+  background: var(--db-navy) !important;
+  border-radius: var(--db-radius) !important;
+  padding: 0 0 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  box-shadow: var(--db-shadow-l) !important;
+  position: sticky !important;
+  top: 24px !important;
+  align-self: start !important;
+  overflow: hidden !important;
+  max-height: calc(100vh - 48px);
+}
+
+/* Teal top band */
+.d-sidebar::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 72px;
+  background: linear-gradient(135deg, var(--db-teal) 0%, #0a5a4e 100%);
+  flex-shrink: 0;
+}
+
+/* Avatar wrapper */
+.d-sidebar > div:first-of-type {
+  margin-top: -44px !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Profile photo */
+.d-sidebar > div:first-of-type img {
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 50% !important;
+  border: 4px solid var(--db-white) !important;
+  object-fit: cover !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,.22) !important;
+  display: block !important;
+}
+
+/* Teacher name */
+.d-sidebar h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin: 14px 0 0 !important;
+  padding: 0 20px !important;
+  text-align: center !important;
+  line-height: 1.4 !important;
+}
+
+/* Role label */
+.d-sidebar h2::after {
+  content: 'Teacher';
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--db-teal-m);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 4px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Nav list */
+.d-sidebar ul {
+  width: 100% !important;
+  list-style: none !important;
+  margin: 18px 0 0 !important;
+  padding: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.d-sidebar ul li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.d-sidebar ul li a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 13px 22px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,.72) !important;
+  text-decoration: none !important;
+  transition: background .18s, color .18s, padding-left .18s !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 0 !important;
+}
+
+.d-sidebar ul li a::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.22);
+  flex-shrink: 0;
+  transition: background .18s;
+}
+
+/* Active / hover nav item */
+.d-sidebar ul li a:hover,
+.d-sidebar ul li:first-child a {
+  color: #ffffff !important;
+  background: rgba(255,255,255,.07) !important;
+  border-left-color: var(--db-teal-m) !important;
+  padding-left: 28px !important;
+}
+
+.d-sidebar ul li a:hover::before,
+.d-sidebar ul li:first-child a::before {
+  background: var(--db-teal-m);
+}
+
+/* ================================================================
+   CONTENT AREA
+   ================================================================ */
+
+.d-content {
+  grid-area: content !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+
+/* ── Profile card wrapper ─────────────────────────────────────── */
+.teacher-profile-wrap {
+  background: var(--db-white) !important;
+  border-radius: var(--db-radius) !important;
+  box-shadow: var(--db-shadow) !important;
+  overflow: hidden !important;
+  border: none !important;
+}
+
+/* Section heading */
+.teacher-profile-wrap h3 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy) !important;
+  margin: 0 !important;
+  padding: 18px 22px 16px !important;
+  border-bottom: 1px solid var(--db-border) !important;
+  display: block !important;
+  align-items: center !important;
+  gap: 10px !important;
+  letter-spacing: -0.2px !important;
+}
+
+.teacher-profile-wrap h3::before {
+  content: '';
+  width: 3px;
+  height: 17px;
+  background: var(--db-teal);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   TABLE — Assigned Subjects
+   ================================================================ */
+
+.teacher-profile-wrap .wp-list-table,
+.teacher-profile-wrap table.widefat,
+.teacher-profile-wrap table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 13.5px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  border: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+/* Header row */
+.teacher-profile-wrap table thead tr {
+  background: #f8fafd !important;
+}
+
+.teacher-profile-wrap table thead th,
+.teacher-profile-wrap .wp-list-table thead th {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.65px !important;
+  color: var(--db-muted) !important;
+  padding: 13px 20px !important;
+  border-bottom: 1px solid var(--db-border) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  background: #f8fafd !important;
+  white-space: nowrap;
+}
+
+/* Body rows */
+.teacher-profile-wrap table tbody tr,
+.teacher-profile-wrap .wp-list-table tbody tr {
+  transition: background .15s !important;
+  border-bottom: 1px solid var(--db-border) !important;
+}
+
+.teacher-profile-wrap table tbody tr:last-child,
+.teacher-profile-wrap .wp-list-table tbody tr:last-child {
+  border-bottom: none !important;
+}
+
+.teacher-profile-wrap table tbody tr:hover,
+.teacher-profile-wrap .wp-list-table tbody tr:hover {
+  background: #f7faf9 !important;
+}
+
+/* WP striped override */
+.teacher-profile-wrap table.striped > tbody > tr:nth-child(odd),
+.teacher-profile-wrap .widefat.striped tbody tr:nth-child(odd) {
+  background: transparent !important;
+}
+
+.teacher-profile-wrap table td,
+.teacher-profile-wrap .wp-list-table td {
+  padding: 15px 20px !important;
+  color: var(--db-text) !important;
+  border: none !important;
+  vertical-align: middle !important;
+  line-height: 1.4 !important;
+}
+
+/* Class column */
+.teacher-profile-wrap table td:first-child {
+  font-weight: 600 !important;
+  color: var(--db-navy) !important;
+}
+
+.teacher-profile-wrap table td:first-child::before {
+  content: 'Class ';
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--db-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Section column */
+.teacher-profile-wrap table td:nth-child(2) {
+  color: var(--db-muted) !important;
+  font-weight: 500 !important;
+}
+
+/* Subject column */
+.teacher-profile-wrap table td:nth-child(3) {
+  font-weight: 500 !important;
+}
+
+/* Actions column */
+.teacher-profile-wrap table td:last-child,
+.teacher-profile-wrap table td:nth-child(4) {
+  white-space: nowrap;
+}
+
+/* ── All action links ─────────────────────────────────────────── */
+.teacher-profile-wrap table td a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 6px 13px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  margin-right: 6px !important;
+  margin-bottom: 0 !important;
+  transition: all .18s !important;
+  letter-spacing: .1px;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+
+/* Add Mark — teal */
+.teacher-profile-wrap table td a[href*="add-marks"] {
+  background: var(--db-teal-l) !important;
+  color: var(--db-teal) !important;
+  border-color: var(--db-teal-m) !important;
+}
+.teacher-profile-wrap table td a[href*="add-marks"]:hover {
+  background: var(--db-teal) !important;
+  color: #fff !important;
+  border-color: var(--db-teal) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(13,122,107,.22) !important;
+}
+
+/* View Mark — indigo */
+.teacher-profile-wrap table td a[href*="view-marks"] {
+  background: var(--db-indigo-l) !important;
+  color: var(--db-indigo) !important;
+  border-color: var(--db-indigo-b) !important;
+}
+.teacher-profile-wrap table td a[href*="view-marks"]:hover {
+  background: var(--db-indigo) !important;
+  color: #fff !important;
+  border-color: var(--db-indigo) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(55,48,163,.2) !important;
+}
+
+/* Download MarkSheet — gold */
+.teacher-profile-wrap table td a[href*="mark-sheet"],
+.teacher-profile-wrap table td a[href*="marksheet"] {
+  background: var(--db-gold-l) !important;
+  color: var(--db-gold) !important;
+  border-color: var(--db-gold-b) !important;
+}
+.teacher-profile-wrap table td a[href*="mark-sheet"]:hover,
+.teacher-profile-wrap table td a[href*="marksheet"]:hover {
+  background: var(--db-gold) !important;
+  color: #fff !important;
+  border-color: var(--db-gold) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(200,146,42,.25) !important;
+}
+
+/* Strip inline margins WP adds */
+.teacher-profile-wrap table td a[style] {
+  margin-right: 6px !important;
+}
+
+/* ================================================================
+   RESPONSIVE — tablet / mobile
+   ================================================================ */
+
+@media (max-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content" !important;
+    padding: 16px !important;
+    gap: 16px !important;
+  }
+
+  .d-sidebar {
+    position: static !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    padding: 0 !important;
+    max-height: none !important;
+  }
+
+  .d-sidebar::before { display: none !important; }
+
+  .d-sidebar > div:first-of-type {
+    margin-top: 0 !important;
+    width: auto !important;
+    padding: 14px 16px !important;
+  }
+
+  .d-sidebar > div:first-of-type img {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .d-sidebar h2 {
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 14px 0 !important;
+    font-size: 13px !important;
+  }
+
+  .d-sidebar h2::after { display: none; }
+
+  .d-sidebar ul {
+    width: 100% !important;
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-top: 0 !important;
+  }
+
+  .d-sidebar ul li a {
+    padding: 10px 14px !important;
+  }
+
+  .teacher-profile-wrap table td:first-child::before { display: none; }
+}
+
+/* ================================================================
+   RTNB School — Add Marks Page CSS
+   Target: https://rtnb.edu.bd/add-marks/
+   Add to WordPress Customizer → Additional CSS
+   ================================================================ */
+
+/* ── Content heading (Bangla 1st Part) ───────────────────────── */
+.d-content > h2 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy, #0f2a4a) !important;
+  margin: 0 0 18px !important;
+  padding: 16px 22px !important;
+  background: #fff !important;
+  border-radius: 14px !important;
+  box-shadow: 0 2px 8px rgba(15,42,74,.07), 0 0 1px rgba(15,42,74,.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  border-left: 4px solid #0d7a6b !important;
+  letter-spacing: -0.3px !important;
+}
+
+.d-content > h2::before {
+  content: '✏';
+  font-style: normal;
+  font-size: 16px;
+}
+
+/* ── Form wrapper ────────────────────────────────────────────── */
+.d-content form {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(15,42,74,.07), 0 0 1px rgba(15,42,74,.08);
+  overflow: hidden;
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+.d-content form .wp-list-table,
+.d-content form table.widefat,
+.d-content form table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 13.5px !important;
+  border: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+/* Header row */
+.d-content form table thead tr {
+  background: #0f2a4a !important;
+}
+
+.d-content form table thead th {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.7px !important;
+  color: #94b8d0 !important;
+  padding: 14px 18px !important;
+  border: none !important;
+  text-align: left !important;
+  white-space: nowrap;
+}
+
+.d-content form table thead th:first-child {
+  width: 60px;
+  text-align: center;
+}
+
+.d-content form table thead th:nth-child(3),
+.d-content form table thead th:nth-child(4),
+.d-content form table thead th:nth-child(5) {
+  text-align: center;
+}
+
+/* Body rows */
+.d-content form table tbody tr {
+  border-bottom: 1px solid #e4e9f0 !important;
+  transition: background .15s !important;
+}
+
+.d-content form table tbody tr:last-child {
+  border-bottom: none !important;
+}
+
+.d-content form table tbody tr:hover {
+  background: #f4faf8 !important;
+}
+
+/* WP striped override — every row same bg */
+.d-content form table.striped > tbody > tr:nth-child(odd),
+.d-content form table.widefat.striped tbody tr:nth-child(odd) {
+  background: transparent !important;
+}
+
+/* Alternating subtle tint */
+.d-content form table tbody tr:nth-child(even) {
+  background: #f8fbfa !important;
+}
+.d-content form table tbody tr:nth-child(even):hover {
+  background: #eef7f5 !important;
+}
+
+/* Cells */
+.d-content form table tbody td {
+  padding: 10px 18px !important;
+  color: #1a2940 !important;
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+/* Roll number column */
+.d-content form table tbody td:first-child {
+  font-weight: 700 !important;
+  color: #0d7a6b !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  width: 60px;
+}
+
+/* Name column */
+.d-content form table tbody td:nth-child(2) {
+  font-weight: 500 !important;
+  color: #1a2940 !important;
+}
+
+/* Mark input columns */
+.d-content form table tbody td:nth-child(3),
+.d-content form table tbody td:nth-child(4),
+.d-content form table tbody td:nth-child(5) {
+  text-align: center !important;
+  width: 130px;
+}
+
+/* ── Number inputs ───────────────────────────────────────────── */
+.d-content form table input[type="number"] {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #0f2a4a !important;
+  background: #f4f6fb !important;
+  border: 1.5px solid #d1dae8 !important;
+  border-radius: 8px !important;
+  padding: 7px 10px !important;
+  width: 90px !important;
+  text-align: center !important;
+  outline: none !important;
+  transition: border-color .18s, background .18s, box-shadow .18s !important;
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+/* Hide spinner arrows */
+.d-content form table input[type="number"]::-webkit-outer-spin-button,
+.d-content form table input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.d-content form table input[type="number"]:focus {
+  border-color: #0d7a6b !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(13,122,107,.13) !important;
+}
+
+/* Filled (has value) */
+.d-content form table input[type="number"]:not(:placeholder-shown):valid {
+  border-color: #b2e0d9 !important;
+  background: #f0faf8 !important;
+  color: #0d7a6b !important;
+}
+
+/* ── Save button ─────────────────────────────────────────────── */
+.d-content form > br {
+  display: none !important;
+}
+
+.d-content form > button[type="submit"],
+.d-content form .button-primary[name="srm_save_marks"] {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: #0d7a6b !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 13px 32px !important;
+  cursor: pointer !important;
+  transition: background .18s, transform .18s, box-shadow .18s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 12px rgba(13,122,107,.25) !important;
+  margin: 20px 22px 22px !important;
+  height: auto !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+.d-content form > button[type="submit"]::before,
+.d-content form .button-primary[name="srm_save_marks"]::before {
+  content: '💾';
+  font-size: 15px;
+}
+
+.d-content form > button[type="submit"]:hover,
+.d-content form .button-primary[name="srm_save_marks"]:hover {
+  background: #0a5a4e !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(13,122,107,.35) !important;
+}
+
+.d-content form > button[type="submit"]:active,
+.d-content form .button-primary[name="srm_save_marks"]:active {
+  transform: translateY(0) !important;
+}
+
+/* ── Progress indicator (filled count) ──────────────────────── */
+.d-content form table thead th:last-child::after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  color: #5da898;
+  letter-spacing: 0;
+  margin-top: 2px;
+  text-transform: none;
+}
+
+/* Grid Layout */
+.marks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Card */
+.mark-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.mark-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* Header */
+.card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #222;
+}
+
+.card-header span {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Actions */
+.card-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Buttons */
+.btn {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+/* Different buttons */
+.btn.add {
+    background: #0073aa;
+    color: #fff;
+}
+
+.btn.view {
+    background: #46b450;
+    color: #fff;
+}
+
+.btn.download {
+    background: #d63638;
+    color: #fff;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+/* ================================================================
+   RTNB — Management Menu Cards
+   ADD THIS to the END of your existing CSS in
+   WordPress Customizer → Additional CSS
+   ================================================================ */
+
+/* ── Section label above the grid ────────────────────────────── */
+.menu-section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .9px;
+  color: var(--db-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.menu-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--db-border);
+}
+
+/* ── Override default ul styles ──────────────────────────────── */
+.dashboard-wrap ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 14px !important;
+}
+
+/* ── Card — the <a> tag itself ───────────────────────────────── */
+.dashboard-wrap ul.grid-a li a {
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--db-white) !important;
+  border-radius: var(--db-radius) !important;
+  border: 1px solid var(--db-border) !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  box-shadow: var(--db-shadow) !important;
+  transition: transform .2s, box-shadow .2s, border-color .2s !important;
+  height: 100% !important;
+  padding: 0 !important;
+  color: var(--db-text) !important;
+}
+.dashboard-wrap ul.grid-li li {
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--db-white) !important;
+  border-radius: var(--db-radius) !important;
+  border: 1px solid var(--db-border) !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  box-shadow: var(--db-shadow) !important;
+  transition: transform .2s, box-shadow .2s, border-color .2s !important;
+  height: 100% !important;
+  padding: 0 !important;
+  color: var(--db-text) !important;
+}
+
+.dashboard-wrap ul li a:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--db-shadow-l) !important;
+}
+
+/* ── Coloured top strip via ::before ─────────────────────────── */
+.dashboard-wrap ul.grid-a li a::before {
+  content: '' !important;
+  display: block !important;
+  width: 100% !important;
+  height: 5px !important;
+  flex-shrink: 0 !important;
+}
+
+.dashboard-wrap ul.grid-li li::before {
+  content: '' !important;
+  display: block !important;
+  width: 100% !important;
+  height: 5px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── Card inner body ─────────────────────────────────────────── */
+.menu-card-body {
+  padding: 18px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* ── Icon box ────────────────────────────────────────────────── */
+.menu-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-card-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ── Card text ───────────────────────────────────────────────── */
+.menu-card-name {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy) !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+
+.menu-card-desc {
+  font-size: 12px;
+  color: var(--db-muted);
+  line-height: 1.55;
+  flex: 1;
+  margin: 0;
+}
+
+/* ── Card footer arrow ───────────────────────────────────────── */
+.menu-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 9px 16px;
+  border-top: 1px solid var(--db-border);
+  font-size: 11.5px;
+  font-weight: 600;
+  transition: color .18s;
+}
+
+/* ================================================================
+   COLOUR VARIANTS — one per menu item (nth-child order)
+   1 Dashboard  2 Admit Card  3 Seat Plan
+   4 Teacher List  5 Teacher Marksheet  6 Student Marksheet
+   ================================================================ */
+
+/* 1 — Dashboard: teal */
+.dashboard-wrap ul.grid-li li::before      { background: var(--db-teal) !important; }
+
+.dashboard-wrap ul.grid-a li:nth-child(1) a::before      { background: var(--db-teal) !important; }
+.dashboard-wrap ul.grid-a li:nth-child(1) .menu-card-icon { background: var(--db-teal-l); }
+.dashboard-wrap ul.grid-a li:nth-child(1) .menu-card-icon svg { stroke: var(--db-teal); }
+.dashboard-wrap ul.grid-a li:nth-child(1) .menu-card-footer   { color: var(--db-teal); }
+.dashboard-wrap ul.grid-a li:nth-child(1) a:hover             { border-color: var(--db-teal-m) !important; }
+
+/* 2 — Admit Card: indigo */
+.dashboard-wrap ul.grid-a li:nth-child(2) a::before      { background: var(--db-indigo) !important; }
+.dashboard-wrap ul.grid-a li:nth-child(2) .menu-card-icon { background: var(--db-indigo-l); }
+.dashboard-wrap ul.grid-a li:nth-child(2) .menu-card-icon svg { stroke: var(--db-indigo); }
+.dashboard-wrap ul.grid-a li:nth-child(2) .menu-card-footer   { color: var(--db-indigo); }
+.dashboard-wrap ul.grid-a li:nth-child(2) a:hover             { border-color: var(--db-indigo-b) !important; }
+
+/* 3 — Seat Plan: gold */
+.dashboard-wrap ul li:nth-child(3) a::before      { background: var(--db-gold) !important; }
+.dashboard-wrap ul li:nth-child(3) .menu-card-icon { background: var(--db-gold-l); }
+.dashboard-wrap ul li:nth-child(3) .menu-card-icon svg { stroke: var(--db-gold); }
+.dashboard-wrap ul li:nth-child(3) .menu-card-footer   { color: var(--db-gold); }
+.dashboard-wrap ul li:nth-child(3) a:hover             { border-color: var(--db-gold-b) !important; }
+
+/* 4 — Teacher List: navy */
+.dashboard-wrap ul li:nth-child(4) a::before      { background: var(--db-navy) !important; }
+.dashboard-wrap ul li:nth-child(4) .menu-card-icon { background: #e8eef5; }
+.dashboard-wrap ul li:nth-child(4) .menu-card-icon svg { stroke: var(--db-navy); }
+.dashboard-wrap ul li:nth-child(4) .menu-card-footer   { color: var(--db-navy); }
+.dashboard-wrap ul li:nth-child(4) a:hover             { border-color: #b6c8dc !important; }
+
+/* 5 — Teacher Marksheet: rose */
+.dashboard-wrap ul li:nth-child(5) a::before      { background: #9f1239 !important; }
+.dashboard-wrap ul li:nth-child(5) .menu-card-icon { background: #fff1f2; }
+.dashboard-wrap ul li:nth-child(5) .menu-card-icon svg { stroke: #9f1239; }
+.dashboard-wrap ul li:nth-child(5) .menu-card-footer   { color: #9f1239; }
+.dashboard-wrap ul li:nth-child(5) a:hover             { border-color: #fecdd3 !important; }
+
+/* 6 — Student Marksheet: violet */
+.dashboard-wrap ul li:nth-child(6) a::before      { background: #6d28d9 !important; }
+.dashboard-wrap ul li:nth-child(6) .menu-card-icon { background: #f5f3ff; }
+.dashboard-wrap ul li:nth-child(6) .menu-card-icon svg { stroke: #6d28d9; }
+.dashboard-wrap ul li:nth-child(6) .menu-card-footer   { color: #6d28d9; }
+.dashboard-wrap ul li:nth-child(6) a:hover             { border-color: #ddd6fe !important; }
+/* ================================================================
+   RTNB — Teacher Info Section (teacher marksheet page)
+   APPEND THIS to the end of your existing CSS in
+   WordPress Customizer → Additional CSS
+   ================================================================ */
+
+/* ── Outer wrapper ───────────────────────────────────────────── */
+.dashboard-wrap .teacher-info {
+  background: var(--db-white);
+  border-radius: var(--db-radius);
+  box-shadow: var(--db-shadow-l);
+  overflow: hidden;
+}
+
+/* ── Teacher header banner ───────────────────────────────────── */
+.teacher-info-header {
+  background: linear-gradient(135deg, var(--db-navy) 0%, #1a4a7a 100%);
+  padding: 26px 28px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Avatar initials circle */
+.teacher-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 2px solid rgba(255,255,255,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.teacher-meta-name {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin: 0 0 4px !important;
+  letter-spacing: -.2px;
+  line-height: 1.2;
+}
+
+.teacher-meta-role {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--db-teal-m);
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+}
+
+.teacher-subject-count {
+  margin-left: auto;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.teacher-subject-count strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+
+.teacher-subject-count span {
+  font-size: 10px;
+  color: var(--db-teal-m);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* ── "Assigned Subjects" divider label ───────────────────────── */
+.subjects-divider-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--db-muted);
+  text-transform: uppercase;
+  letter-spacing: .9px;
+}
+
+.subjects-divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--db-border);
+}
+
+/* ── Subject cards grid ──────────────────────────────────────── */
+.teacher-info .grid-li {
+  list-style: none !important;
+  padding: 0 20px 20px !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 14px !important;
+}
+
+/* ── Individual subject card ─────────────────────────────────── */
+.teacher-info .grid-li li {
+  background: var(--db-white) !important;
+  border-radius: var(--db-radius) !important;
+  border: 1px solid var(--db-border) !important;
+  overflow: hidden !important;
+  box-shadow: var(--db-shadow) !important;
+  transition: transform .2s, box-shadow .2s, border-color .2s !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.teacher-info .grid-li li:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--db-shadow-l) !important;
+}
+
+/* Coloured top strip — odd teal, even indigo */
+.teacher-info .grid-li li::before {
+  content: '' !important;
+  display: block !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: var(--db-teal) !important;
+  flex-shrink: 0 !important;
+}
+
+.teacher-info .grid-li li:nth-child(2n)::before {
+  background: var(--db-indigo) !important;
+}
+
+/* ── Card body ───────────────────────────────────────────────── */
+.teacher-info .grid-li li .card-body {
+  padding: 16px 18px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Subject name — replaces the bare <h3> */
+.teacher-info .grid-li li h3 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy) !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  padding: 16px 18px 0 !important;
+}
+
+/* Class/section pill — the <p> that says "Six - A" */
+.teacher-info .grid-li li p:first-of-type {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--db-muted) !important;
+  background: #f4f6fb !important;
+  border: 1px solid var(--db-border) !important;
+  border-radius: 100px !important;
+  padding: 3px 10px !important;
+  width: fit-content !important;
+  margin: 4px 18px 0 !important;
+}
+
+.teacher-info .grid-li li p:first-of-type::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--db-teal);
+  flex-shrink: 0;
+}
+
+.teacher-info .grid-li li:nth-child(2n) p:first-of-type::before {
+  background: var(--db-indigo);
+}
+
+/* ── Card action row — the <p> that holds the links ─────────── */
+.teacher-info .grid-li li p:last-of-type {
+  display: flex !important;
+  gap: 8px !important;
+  padding: 11px 18px !important;
+  border-top: 1px solid var(--db-border) !important;
+  margin: 8px 0 0 !important;
+}
+
+/* Both action links */
+.teacher-info .grid-li li p:last-of-type a {
+  flex: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 7px 10px !important;
+  border-radius: 7px !important;
+  text-decoration: none !important;
+  transition: all .18s !important;
+  border: 1px solid transparent !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+/* View Marks link — teal */
+.teacher-info .grid-li li p:last-of-type a[href*="view-marks"] {
+  background: var(--db-teal-l) !important;
+  color: var(--db-teal) !important;
+  border-color: var(--db-teal-m) !important;
+}
+.teacher-info .grid-li li p:last-of-type a[href*="view-marks"]:hover {
+  background: var(--db-teal) !important;
+  color: #fff !important;
+  border-color: var(--db-teal) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(13,122,107,.22) !important;
+}
+
+/* Marksheet link — gold */
+.teacher-info .grid-li li p:last-of-type a[href*="marksheet"],
+.teacher-info .grid-li li p:last-of-type a[href*="mark-sheet"] {
+  background: var(--db-gold-l) !important;
+  color: var(--db-gold) !important;
+  border-color: var(--db-gold-b) !important;
+}
+.teacher-info .grid-li li p:last-of-type a[href*="marksheet"]:hover,
+.teacher-info .grid-li li p:last-of-type a[href*="mark-sheet"]:hover {
+  background: var(--db-gold) !important;
+  color: #fff !important;
+  border-color: var(--db-gold) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(200,146,42,.25) !important;
+}
+/* ================================================================
+   RTNB — Seat Plan Section
+   APPEND THIS to the end of your existing CSS in
+   WordPress Customizer → Additional CSS
+   ================================================================ */
+
+/* ── Outer wrapper ───────────────────────────────────────────── */
+.dashboard-wrap .srm-seat-plan {
+  padding: 20px !important;
+}
+
+/* ── Page header banner ──────────────────────────────────────── */
+.srm-seat-plan-header {
+  background: linear-gradient(135deg, var(--db-navy) 0%, #1a4a7a 100%);
+  border-radius: var(--db-radius) var(--db-radius) 0 0;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 0;
+}
+
+.srm-seat-plan-header .header-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.srm-seat-plan-header .header-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.srm-seat-plan-header h2 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin: 0 !important;
+  letter-spacing: -.2px;
+}
+
+.srm-seat-plan-header p {
+  font-size: 12px !important;
+  color: var(--db-teal-m) !important;
+  margin: 3px 0 0 !important;
+  font-weight: 500 !important;
+}
+
+/* ── Blocks grid ─────────────────────────────────────────────── */
+.srm-seat-plan .blocks {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ── Individual class block ──────────────────────────────────── */
+.srm-seat-plan .blocks > div {
+  border-radius: var(--db-radius) !important;
+  border: 1px solid var(--db-border) !important;
+  overflow: hidden !important;
+  background: var(--db-white) !important;
+  box-shadow: var(--db-shadow) !important;
+  transition: transform .2s, box-shadow .2s !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+}
+
+.srm-seat-plan .blocks > div:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--db-shadow-l) !important;
+}
+
+/* Colour-coded top border per class */
+.srm-seat-plan .blocks > div:nth-child(1) { border-top: 4px solid var(--db-teal)   !important; }
+.srm-seat-plan .blocks > div:nth-child(2) { border-top: 4px solid var(--db-indigo) !important; }
+.srm-seat-plan .blocks > div:nth-child(3) { border-top: 4px solid var(--db-gold)   !important; }
+.srm-seat-plan .blocks > div:nth-child(4) { border-top: 4px solid #9f1239          !important; }
+.srm-seat-plan .blocks > div:nth-child(5) { border-top: 4px solid #6d28d9          !important; }
+
+/* ── Class heading ───────────────────────────────────────────── */
+.srm-seat-plan .blocks > div h3 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--db-navy) !important;
+  margin: 0 !important;
+  padding: 13px 15px 11px !important;
+  border-bottom: 1px solid var(--db-border) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Dot before heading — colour matches top strip */
+.srm-seat-plan .blocks > div h3::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+.srm-seat-plan .blocks > div:nth-child(1) h3::before { background: var(--db-teal);   }
+.srm-seat-plan .blocks > div:nth-child(2) h3::before { background: var(--db-indigo); }
+.srm-seat-plan .blocks > div:nth-child(3) h3::before { background: var(--db-gold);   }
+.srm-seat-plan .blocks > div:nth-child(4) h3::before { background: #9f1239;          }
+.srm-seat-plan .blocks > div:nth-child(5) h3::before { background: #6d28d9;          }
+
+/* ── Link list ───────────────────────────────────────────────── */
+.srm-seat-plan .blocks > div ul {
+  list-style: none !important;
+  padding: 10px 10px 12px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.srm-seat-plan .blocks > div ul li {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* All three link types */
+.srm-seat-plan .blocks > div ul li a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 7px 10px !important;
+  border-radius: 7px !important;
+  text-decoration: none !important;
+  transition: all .18s !important;
+  border: 1px solid !important;
+  width: 100% !important;
+}
+
+/* "All" — teal (first li) */
+.srm-seat-plan .blocks > div ul li:nth-child(1) a {
+  background: var(--db-teal-l)  !important;
+  border-color: var(--db-teal-m) !important;
+  color: var(--db-teal)         !important;
+}
+.srm-seat-plan .blocks > div ul li:nth-child(1) a:hover {
+  background: var(--db-teal) !important;
+  color: #fff                !important;
+  border-color: var(--db-teal) !important;
+  transform: translateX(2px);
+}
+
+/* "Male" — indigo (second li) */
+.srm-seat-plan .blocks > div ul li:nth-child(2) a {
+  background: var(--db-indigo-l) !important;
+  border-color: var(--db-indigo-b) !important;
+  color: var(--db-indigo)         !important;
+}
+.srm-seat-plan .blocks > div ul li:nth-child(2) a:hover {
+  background: var(--db-indigo)    !important;
+  color: #fff                     !important;
+  border-color: var(--db-indigo)  !important;
+  transform: translateX(2px);
+}
+
+/* "Female" — rose (third li) */
+.srm-seat-plan .blocks > div ul li:nth-child(3) a {
+  background: #fff1f2   !important;
+  border-color: #fecdd3 !important;
+  color: #9f1239        !important;
+}
+.srm-seat-plan .blocks > div ul li:nth-child(3) a:hover {
+  background: #9f1239   !important;
+  color: #fff           !important;
+  border-color: #9f1239 !important;
+  transform: translateX(2px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .srm-seat-plan .blocks {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .srm-seat-plan .blocks {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .srm-seat-plan .blocks {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .teacher-info .grid-li {
+    grid-template-columns: 1fr !important;
+  }
+  .teacher-info-header {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  .teacher-subject-count {
+    margin-left: 0;
+    text-align: left;
+  }
+}
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .dashboard-wrap ul {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-wrap ul {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .d-content form table tbody td {
+    padding: 9px 12px !important;
+  }
+
+  .d-content form table input[type="number"] {
+    width: 72px !important;
+    font-size: 13px !important;
+    padding: 6px 6px !important;
+  }
+
+  .d-content form table thead th {
+    padding: 12px 12px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .d-content form table {
+    font-size: 12px !important;
+  }
+
+  .d-content form table input[type="number"] {
+    width: 60px !important;
+  }
+
+  .d-content form table tbody td:first-child {
+    width: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .teacher-profile-wrap table td:last-child,
+  .teacher-profile-wrap table td:nth-child(4) {
+    white-space: normal;
+  }
+
+  .teacher-profile-wrap table td a {
+    display: inline-flex !important;
+    margin-bottom: 6px !important;
+  }
+
+  .teacher-profile-wrap table td,
+  .teacher-profile-wrap table thead th {
+    padding: 10px 12px !important;
+  }
+}

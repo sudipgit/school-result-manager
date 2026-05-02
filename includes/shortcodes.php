@@ -13,14 +13,25 @@ function srm_add_student_shortcode() {
 add_shortcode('srm_add_student','srm_add_student_shortcode');
 
 
-add_shortcode('teacher_profile', function() {
-     ob_start();
-    include SRM_PLUGIN_PATH . 'frontend/teacher-profile.php';
-     return ob_get_clean();
+add_shortcode('srm_dashboard', function() {
+    ob_start();
+    if (current_user_can('administrator')) {
+        include SRM_PLUGIN_PATH . 'frontend/dashboard.php';
+    }else{
+        include SRM_PLUGIN_PATH . 'frontend/teacher-profile.php';
+    }
+    
+    return ob_get_clean();
 });
 
 add_shortcode('srm_add_marks', function() {
     ob_start();
     include SRM_PLUGIN_PATH . 'frontend/add-marks.php';
+    return ob_get_clean();
+});
+
+add_shortcode('srm_view_marks', function() {
+    ob_start();
+    include SRM_PLUGIN_PATH . 'frontend/view-marks.php';
     return ob_get_clean();
 });

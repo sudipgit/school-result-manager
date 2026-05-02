@@ -212,3 +212,32 @@ function srm_merit_possition_rolls($merit){
      }
      return $result;
 }
+
+function srm_get_section_title($id){
+    global $wpdb;
+    $table    = $wpdb->prefix . 'srm_sections';
+
+    $row = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id)
+    );
+
+    if ($row) {
+        return  $row->name;
+        
+    }
+
+   
+}
+function srm_get_subject_title($id){
+    global $wpdb;
+    $table    = $wpdb->prefix . 'srm_subjects';
+    $row = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id)
+    );
+
+    if ($row) {
+        return  $row->name;
+        
+    }
+}
+

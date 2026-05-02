@@ -37,6 +37,10 @@ $assignments = $wpdb->get_results($wpdb->prepare(
      $active_exam
 ));
 
+$exam_name = $wpdb->get_var($wpdb->prepare("SELECT name FROM {$wpdb->prefix}srm_exams WHERE id=%d", $active_exam));
+$photos = srm_get_teacher_photos();              
+
+
 // Fetch class and section names for each assignment
 foreach ($assignments as $key => $a) {
     $class = $wpdb->get_row($wpdb->prepare("SELECT name, class_no FROM $classes_table WHERE class_no=%d", $a->class_no));
@@ -47,50 +51,54 @@ foreach ($assignments as $key => $a) {
     $assignments[$key]->section_name = $section ? $section->name : '';
 }
 ?>
+<div class="dashboard-layout">
+    <h2> <?= esc_html($exam_name)?> - <?= esc_html($active_session) ?></h2>
+    <div class="d-sidebar">
+        <div><img src="<?php echo $photos[$current_user->ID];?>" width="150"/></div> 
+        <h2><?= esc_html($current_user->display_name) ?></h2>
+        <p style="color:#fff;">Email: <?= esc_html($current_user->user_email) ?></p>
+        <ul>
+            <li><a href="https://rtnb.edu.bd/management/dashboard/">Dashboard</a></li>
+            <li><a href="https://rtnb.edu.bd/management/dashboard/">Add Marks</a></li>
+            <li><a href="https://rtnb.edu.bd/management/dashboard/">Download Marksheet</a></li>
+        </ul>
+        
+    </div>
+    <div class="d-content">
+        <div class="teacher-profile-wrap">
 
-<div class="teacher-profile-wrap">
-    <h1>Teacher Profile</h1>
+            <h3>Assigned Subjects</h3>
 
-    <h2><?= esc_html($current_user->display_name) ?></h2>
-    <p><strong>Username:</strong> <?= esc_html($current_user->user_login) ?></p>
-    <p><strong>Email:</strong> <?= esc_html($current_user->user_email) ?></p>
+            <?php if ($assignments): ?>
+                <div class="marks-grid">
+                 <?php foreach ($assignments as $a): ?>
+                    <div class="mark-card">
+                        <div class="card-header" style="text-align:center;">
+                            <h3><?= esc_html($a->class_name) ?> - <?= esc_html($a->section_name) ?></h3>
+                            <span><?= esc_html($a->subject_name) ?></span>
+                        </div>
 
-    <p><strong>Current Session:</strong> <?= esc_html($active_session) ?><br>
-    <strong>Current Exam:</strong> 
-    <?php
-        $exam_name = $wpdb->get_var($wpdb->prepare("SELECT name FROM {$wpdb->prefix}srm_exams WHERE id=%d", $active_exam));
-        echo esc_html($exam_name);
-    ?>
-    </p>
+                        <div class="card-actions">
+                            <a href="<?= site_url("/add-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn add">
+                                Add Mark
+                            </a>
 
-    <h3>Assigned Subjects</h3>
+                            <a href="<?= site_url("/view-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn view">
+                                View Mark
+                            </a>
 
-    <?php if ($assignments): ?>
-        <table class="wp-list-table widefat fixed striped">
-            <thead>
-                <tr>
-                    <th>Class</th>
-                    <th>Section</th>
-                    <th>Subject</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($assignments as $a): ?>
-                <tr>
-                    <td><?= esc_html($a->class_name) ?></td>
-                    <td><?= esc_html($a->section_name) ?></td>
-                    <td><?= esc_html($a->subject_name) ?></td>
-                    <td>
-                        <a href="<?= site_url("/add-marks/?class_no={$a->class_no}&section_id={$a->section_id}&subject_id={$a->subject_id}") ?>">
-                            Add Mark
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No subjects assigned for the current session and exam.</p>
-    <?php endif; ?>
+                            <a href="<?= site_url("/management/teacher-mark-sheet/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}&teacher={$current_user->ID}") ?>" class="btn download">
+                                Download MarkSheet
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                </div>
+
+            <?php else: ?>
+                <p>No subjects assigned for the current session and exam.</p>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
