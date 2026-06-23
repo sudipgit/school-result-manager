@@ -79,15 +79,15 @@ foreach ($assignments as $key => $a) {
                         </div>
 
                         <div class="card-actions">
-                            <a href="<?= site_url("/add-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn add">
+                            <a href="<?= site_url("/management/add-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn add">
                                 Add Mark
                             </a>
 
-                            <a href="<?= site_url("/view-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn view">
+                            <a href="<?= site_url("/management/view-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn view">
                                 View Mark
                             </a>
 
-                            <a href="<?= site_url("/management/teacher-mark-sheet/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}&teacher={$current_user->ID}") ?>" class="btn download">
+                            <a href="<?= site_url("/management/download-teacher-marksheet/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}&teacher={$current_user->ID}") ?>" class="btn download">
                                 Download MarkSheet
                             </a>
                         </div>

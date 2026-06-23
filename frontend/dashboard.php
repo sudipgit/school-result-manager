@@ -1,8 +1,7 @@
 <?php
 global $wpdb;
-if (!current_user_can('administrator')) {
-    echo '<p>Please log in to view your profile.</p>';
-    return;
+if (!current_user_can('manage_options') && !current_user_can('management')) {
+    wp_die('You do not have permission.');
 }
 $active_session = get_option('srm_active_session'); // e.g., "2025-2026"
 $active_exam_id = intval(get_option('srm_active_exam')); // e.g., 3
@@ -14,15 +13,17 @@ $photos = srm_get_teacher_photos();
 
   <!-- SIDEBAR -->
   <div class="d-sidebar">
-    <div class="d-sidebar-logo">R</div>
-    <span class="d-sidebar-label">Management</span>
+   
     <ul>
       <li class="active"><a href="https://rtnb.edu.bd/management/dashboard/">Dashboard</a></li>
+      <li><a href="https://rtnb.edu.bd/management/students-2/">Students</a></li>
+       <li><a href="https://rtnb.edu.bd/management/add-student/">Add Student</a></li> 
       <li><a href="https://rtnb.edu.bd/management/dashboard/">Admit Card</a></li>
       <li><a href="https://rtnb.edu.bd/management/seat-plan/">Seat Plan</a></li>
-      <li><a href="https://rtnb.edu.bd/management/teacher-list/">Teacher List</a></li>
+      <li><a href="https://rtnb.edu.bd/management/teacher-list/">Teachers</a></li>
       <li><a href="https://rtnb.edu.bd/management/teacher-list/">Teacher Marksheet</a></li>
       <li><a href="">Student Marksheet</a></li>
+      <li><a href="https://rtnb.edu.bd/management/settings/">Settings</a></li>
     </ul>
   </div>
 

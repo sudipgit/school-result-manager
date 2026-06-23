@@ -9,5 +9,14 @@ function srm_add_roles() {
             'publish_posts' => false,
         ]);
     }
+     if (!get_role('management')) {
+        add_role('management', 'Management', [
+            'read' => true,
+            'edit_posts' => false,
+            'publish_posts' => false,
+        ]);
+    }
 }
+
+
 

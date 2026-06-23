@@ -9,6 +9,7 @@ if (!in_array('teacher', $current_user->roles)) {
 }
 
 global $wpdb;
+
 $students_table   = $wpdb->prefix . 'srm_students';
 $subjects_table   = $wpdb->prefix . 'srm_subjects';
 $marks_table      = $wpdb->prefix . 'srm_marks';
@@ -62,18 +63,18 @@ $section_name = $wpdb->get_var($wpdb->prepare(
     
 if($subject_id==8){
     $students = $wpdb->get_results($wpdb->prepare(
-        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND religion='Islam' ORDER BY CAST(roll AS UNSIGNED) ASC",
-        $class_no, $section_name
+        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND session=%s AND religion='Islam' ORDER BY CAST(roll AS UNSIGNED) ASC",
+        $class_no, $section_name,$active_session
     ));
 }else if($subject_id==9){
     $students = $wpdb->get_results($wpdb->prepare(
-    "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND religion='Hindu' ORDER BY CAST(roll AS UNSIGNED) ASC",
-    $class_no, $section_name
+    "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND session=%s AND religion='Hindu' ORDER BY CAST(roll AS UNSIGNED) ASC",
+    $class_no, $section_name,$active_session
     ));
 }else{
     $students = $wpdb->get_results($wpdb->prepare(
-        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s ORDER BY CAST(roll AS UNSIGNED) ASC",
-        $class_no, $section_name
+        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND session=%s ORDER BY CAST(roll AS UNSIGNED) ASC",
+        $class_no, $section_name,$active_session
     ));
 }
 

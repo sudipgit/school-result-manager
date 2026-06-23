@@ -102,13 +102,13 @@ $val = fn($k) => esc_attr($student->$k ?? '');
 ?>
 
 <div class="wrap">
-<h1><?= $is_edit ? 'Edit Student' : 'Add Student' ?></h1>
+<p><?= $is_edit ? 'Edit Student' : 'Add Student' ?></p>
 
 <?php if (!$is_edit): ?>
 <!-- CONTEXT FORM -->
 <form method="get" style="margin-bottom:20px;">
-    <h2>Class Context</h2>
-    <<input type="hidden" name="page" value="<?= esc_attr($_GET['page'] ?? '') ?>">
+    <h4>Class Context </h4>
+    <input type="hidden" name="page" value="<?= esc_attr($_GET['page'] ?? '') ?>">
 
     <select name="class" required onchange="this.form.submit()">
         <option value="">Select Class</option>
@@ -129,6 +129,46 @@ $val = fn($k) => esc_attr($student->$k ?? '');
 <?php endif; ?>
 
 <?php
+/* ================= CSV ENCODING HELPER ================= */
+/**
+ * Reads a CSV file from disk, detects its character encoding,
+ * converts it to clean UTF-8 if needed, strips BOM, and returns
+ * an in-memory stream resource ready for fgetcsv().
+ */
+function srm_open_csv_as_utf8($filepath) {
+    $raw = file_get_contents($filepath);
+
+    if ($raw === false) {
+        return false;
+    }
+
+    // Strip UTF-8 BOM if present
+    $raw = preg_replace('/^\xEF\xBB\xBF/', '', $raw);
+
+    // Detect encoding among common culprits (Excel exports, etc.)
+    $encoding = mb_detect_encoding(
+        $raw,
+        ['UTF-8', 'UTF-16LE', 'UTF-16BE', 'Windows-1252', 'ISO-8859-1'],
+        true
+    );
+
+    if ($encoding && $encoding !== 'UTF-8') {
+        $raw = mb_convert_encoding($raw, 'UTF-8', $encoding);
+    }
+
+    // Re-check: if still not valid UTF-8, force-clean it so it doesn't
+    // break json_encode() / DB inserts later.
+    if (!mb_check_encoding($raw, 'UTF-8')) {
+        $raw = mb_convert_encoding($raw, 'UTF-8', 'UTF-8');
+    }
+
+    $stream = fopen('php://temp', 'r+');
+    fwrite($stream, $raw);
+    rewind($stream);
+
+    return $stream;
+}
+
 /* ================= CSV PREVIEW ================= */
 $preview_rows = [];
 
@@ -140,48 +180,58 @@ if (isset($_POST['preview_csv']) && !empty($_FILES['csv']['tmp_name'])) {
         echo "<div class='notice notice-error'><p>Select Class and Section first.</p></div>";
     } else {
 
-        $file   = fopen($_FILES['csv']['tmp_name'], 'r');
-        $header = array_map('trim', fgetcsv($file));
-        $indexes = array_flip($header);
+        $file = srm_open_csv_as_utf8($_FILES['csv']['tmp_name']);
 
-        $required = ['name_en', 'roll', 'gender'];
+        if ($file === false) {
+            echo "<div class='notice notice-error'><p>Could not read the uploaded file.</p></div>";
+        } else {
 
-        foreach ($required as $r) {
-            if (!isset($indexes[$r])) {
-                echo "<div class='notice notice-error'><p>Missing column: $r</p></div>";
-                return;
+            $header = array_map('trim', fgetcsv($file));
+            $indexes = array_flip($header);
+
+            $required = ['name', 'roll', 'gender'];
+            $missing_column = false;
+
+            foreach ($required as $r) {
+                if (!isset($indexes[$r])) {
+                    echo "<div class='notice notice-error'><p>Missing column: $r</p></div>";
+                    $missing_column = true;
+                }
             }
+
+            if (!$missing_column) {
+
+                while (($row = fgetcsv($file)) !== false) {
+
+                    $data = [];
+                    foreach ($indexes as $key => $i) {
+                        $data[$key] = trim($row[$i] ?? '');
+                    }
+
+                    // Skip empty row
+                    if (empty($data['name']) && empty($data['roll']) && empty($data['gender'])) {
+                        continue;
+                    }
+
+                    // Duplicate check
+                    $exists = $wpdb->get_var(
+                        $wpdb->prepare(
+                            "SELECT id FROM $table WHERE class_no=%d AND roll=%d AND session=%s",
+                            $class,
+                            intval($data['roll']),
+                            $current_session
+                        )
+                    );
+
+                    $preview_rows[] = [
+                        'data'      => $data,
+                        'duplicate' => $exists ? true : false,
+                    ];
+                }
+            }
+
+            fclose($file);
         }
-
-        while (($row = fgetcsv($file)) !== false) {
-
-            $data = [];
-            foreach ($indexes as $key => $i) {
-                $data[$key] = trim($row[$i] ?? '');
-            }
-
-            // Skip empty row
-            if (empty($data['name_en']) && empty($data['roll']) && empty($data['gender'])) {
-                continue;
-            }
-
-            // Duplicate check
-            $exists = $wpdb->get_var(
-                $wpdb->prepare(
-                    "SELECT id FROM $table WHERE class_no=%d AND roll=%d AND session=%s",
-                    $class,
-                    intval($data['roll']),
-                    $current_session
-                )
-            );
-
-            $preview_rows[] = [
-                'data'      => $data,
-                'duplicate' => $exists ? true : false,
-            ];
-        }
-
-        fclose($file);
     }
 }
 
@@ -215,12 +265,12 @@ if (isset($_POST['confirm_csv']) && !empty($_POST['rows'])) {
             $wpdb->prepare("SELECT name FROM $table_sections WHERE id=%d", $section_id)
         );
 
-        $name = $data['name'] ? sanitize_text_field($data['name']) : sanitize_text_field($data['name_en']);
+        $name = $data['name'] ? sanitize_text_field($data['name']) : sanitize_text_field($data['name_en'] ?? '');
 
         $wpdb->insert($table, [
             'unique_id'  => random_int(1000000000, 9999999999),
             'name'       => $name,
-            'name_en'    => sanitize_text_field($data['name_en']),
+            'name_en'    => sanitize_text_field($data['name_en'] ?? ''),
             'roll'       => intval($data['roll']),
             'class_no'   => $class,
             'section_id' => $section_id,
@@ -242,7 +292,7 @@ if (isset($_POST['confirm_csv']) && !empty($_POST['rows'])) {
 <?php if ($is_edit || ($class && $section_id)): ?>
     <?php if ($class && $section_id): ?>
     <hr>
-    <h2>Import Students via CSV</h2>
+    <h4>Import Students via CSV</h4>
 
     <form method="post" enctype="multipart/form-data">
         <?php wp_nonce_field('preview_csv'); ?>
@@ -262,7 +312,7 @@ if (isset($_POST['confirm_csv']) && !empty($_POST['rows'])) {
             <table class="wp-list-table widefat striped">
                 <thead>
                     <tr>
-                        <th>Name (EN)</th>
+                        <th>Name</th>
                         <th>Roll</th>
                         <th>Gender</th>
                         <th>Status</th>
@@ -272,7 +322,7 @@ if (isset($_POST['confirm_csv']) && !empty($_POST['rows'])) {
 
                 <?php foreach ($preview_rows as $row) : ?>
                     <tr style="<?= $row['duplicate'] ? 'background:#ffecec;' : '' ?>">
-                        <td><?= esc_html($row['data']['name_en']) ?></td>
+                        <td><?= esc_html($row['data']['name']) ?></td>
                         <td><?= esc_html($row['data']['roll']) ?></td>
                         <td><?= esc_html($row['data']['gender']) ?></td>
                         <td>

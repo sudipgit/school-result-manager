@@ -67,18 +67,18 @@ $section_name = $wpdb->get_var($wpdb->prepare(
     
 if($subject_id==8){
     $students = $wpdb->get_results($wpdb->prepare(
-        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND religion='Islam' ORDER BY CAST(roll AS UNSIGNED) ASC",
-        $class_no, $section_name
+        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND session=%s AND religion='Islam' ORDER BY CAST(roll AS UNSIGNED) ASC",
+        $class_no, $section_name,$session
     ));
 }else if($subject_id==9){
     $students = $wpdb->get_results($wpdb->prepare(
-    "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND religion='Hindu' ORDER BY CAST(roll AS UNSIGNED) ASC",
-    $class_no, $section_name
+    "SELECT * FROM $students_table WHERE class_no=%d AND section=%s AND session=%s AND religion='Hindu' ORDER BY CAST(roll AS UNSIGNED) ASC",
+    $class_no, $section_name,$session
     ));
 }else{
     $students = $wpdb->get_results($wpdb->prepare(
-        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s ORDER BY CAST(roll AS UNSIGNED) ASC",
-        $class_no, $section_name
+        "SELECT * FROM $students_table WHERE class_no=%d AND section=%s  AND session=%s ORDER BY CAST(roll AS UNSIGNED) ASC",
+        $class_no, $section_name,$session
     ));
 }
 
@@ -183,6 +183,7 @@ ob_start();
             <?php endforeach; ?>
         </tbody>
     </table>
-    <p>  <a target="_blank" href="https://rtnb.edu.bd/management/download-teacher-marksheet/?class=<?php echo $class_no;?>&section=<?php echo $section_id;?>&subject=<?php echo $subject_id;?>&teacher=<?php echo $teacher_id;?>">Download Marksheet</a></p>
+    <p>  <a target="_blank" href="https://rtnb.edu.bd/management/download-teacher-marksheet/?class=<?php echo $class_no;?>&section=<?php echo $section_id;?>&subject=<?php echo $subject_id;?>&teacher=<?php echo $teacher_id;?>">Marksheet</a>
+ <a style="padding-left:30px" target="_blank" href="https://rtnb.edu.bd/management/download-teacher-marksheet/?class=<?php echo $class_no;?>&section=<?php echo $section_id;?>&subject=<?php echo $subject_id;?>&teacher=<?php echo $teacher_id;?>&col=2">Marksheet 2 Column</a></p>
 </div>
                     </div>

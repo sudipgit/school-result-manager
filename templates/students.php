@@ -1,5 +1,5 @@
 <?php
-if (!current_user_can('edit_posts')) exit;
+//if (!current_user_can('edit_posts')) exit;
 
 global $wpdb;
 
@@ -75,7 +75,7 @@ if ($gender) {
 }
 
 /* ---------- PAGINATION ---------- */
-$per_page = 50;
+$per_page = 200;
 $paged  = max(1, intval($_GET['paged'] ?? 1));
 $offset = ($paged - 1) * $per_page;
 
@@ -141,12 +141,11 @@ $students = $wpdb->get_results(
 <table class="wp-list-table widefat fixed striped">
 <thead>
 <tr>
-    <th>ID</th>
-    <th><?= srm_sort_link('Name','name') ?></th>
     <th><?= srm_sort_link('Roll','roll') ?></th>
+    <th><?= srm_sort_link('Name','name') ?></th>
     <th><?= srm_sort_link('Class','class_no') ?></th>
     <th>Section</th>
-    <th>Group</th>
+ <!--   <th>Group</th>-->
     <th><?= srm_sort_link('Session','session') ?></th>
     <th>Gender</th>
     <th>Actions</th>
@@ -155,12 +154,11 @@ $students = $wpdb->get_results(
 <tbody>
 <?php if ($students): foreach ($students as $s): ?>
 <tr>
-    <td><?= esc_html($s->id) ?></td>
-    <td><?= esc_html($s->name) ?></td>
     <td><?= esc_html($s->roll) ?></td>
+    <td><?= esc_html($s->name) ?></td>
     <td><?= esc_html($s->class_no) ?></td>
     <td><?= esc_html($s->section) ?></td>
-    <td><?= esc_html($s->group ?? '-') ?></td>
+    <!--<td><?= esc_html($s->group ?? '-') ?></td>-->
     <td><?= esc_html($s->session) ?></td>
     <td><?= esc_html($s->gender) ?></td>
     <td>

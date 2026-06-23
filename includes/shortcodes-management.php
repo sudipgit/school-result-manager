@@ -10,7 +10,7 @@ function srm_seat_plan_shortcode() {
     }
 
     $user = wp_get_current_user();
-    if (!in_array('school_manager', (array) $user->roles) && !current_user_can('manage_options')) {
+    if (!in_array('management', (array) $user->roles) && !current_user_can('manage_options')) {
        return 'You do not have permission to view this page.';
     }
     $classes = srm_get_all_classes();
@@ -41,7 +41,7 @@ function srm_teacher_list_shortcode() {
     }
 
     $user = wp_get_current_user();
-    if (!in_array('school_manager', (array) $user->roles) && !current_user_can('manage_options')) {
+    if (!in_array('management', (array) $user->roles) && !current_user_can('manage_options')) {
        return 'You do not have permission to view this page.';
     }
    
@@ -89,7 +89,7 @@ function srm_teacher_info_shortcode() {
     }
 
     $user = wp_get_current_user();
-    if (!in_array('school_manager', (array) $user->roles) && !current_user_can('manage_options')) {
+    if (!in_array('management', (array) $user->roles) && !current_user_can('manage_options')) {
        return 'You do not have permission to view this page.';
     }
    
@@ -101,15 +101,15 @@ function srm_teacher_info_shortcode() {
     $active_session = get_option('srm_active_session');
     $active_exam    = intval(get_option('srm_active_exam'));
     $assigned_classes  = srm_get_assigned_classes($teacher_id,$active_session,$active_exam);
-
+    $photos = srm_get_teacher_photos();    
     ob_start();
     ?>
     <div class="teacher-info">
          <!-- ── Teacher header banner ── -->
     <div class="teacher-info-header">
-      <div class="teacher-avatar">S</div><!-- First letter of teacher name -->
+      <div class="teacher-avatar"><img src="<?php echo $photos[$teacher->ID];?>"/></div><!-- First letter of teacher name -->
       <div>
-        <div class="teacher-meta-name">Sudip Kumar Sarkar</div>
+        <div class="teacher-meta-name"><?php echo $teacher->display_name;?></div>
         <div class="teacher-meta-role">Teacher</div>
       </div>
       <div class="teacher-subject-count">

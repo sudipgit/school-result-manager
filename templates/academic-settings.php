@@ -19,7 +19,7 @@ $sessions       = srm_get_sessions();
 ?>
 
 <div class="wrap srm-dashboard">
-<h1>Academic Settings</h1>
+<h4>Academic Settings</h4>
 
 <form method="post">
     <?php wp_nonce_field('srm_academic_settings'); ?>

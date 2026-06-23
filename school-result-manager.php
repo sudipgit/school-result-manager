@@ -2,7 +2,7 @@
 /**
  * Plugin Name: School Result Manager
  * Description: Manage SSC/Bangladesh secondary school results, generate marksheets, and PDFs.
- * Version: 1.0
+ * Version: 1.1
  * Author: Your Name
  */
 
@@ -56,3 +56,30 @@ wp_enqueue_style(
 // Admin Pages
 add_action('admin_menu', 'srm_admin_menu');
 register_activation_hook( SRM_PLUGIN_FILE, 'srm_add_roles');
+add_filter('theme_page_templates','srm_register_template');
+add_filter('template_include', 'srm_load_template');
+
+
+    function srm_register_template($templates) {
+        $templates['pdf-download-template.php'] = 'Download PDF';
+        return $templates;
+    }
+
+    // Step 2: Load template file from plugin
+    function srm_load_template($template) {
+        if (is_page()) {
+            global $post;
+
+            $selected_template = get_post_meta($post->ID, '_wp_page_template', true);
+
+            if ($selected_template === 'pdf-download-template.php') {
+                $plugin_template = SRM_PLUGIN_PATH . 'templates/pdf-download-template.php';
+
+                if (file_exists($plugin_template)) {
+                    return $plugin_template;
+                }
+            }
+        }
+
+        return $template;
+    }
