@@ -769,11 +769,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+	justify-content: center;
 }
 
 /* Buttons */
 .btn {
-    text-decoration: none;
+    text-decoration: none !important;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 13px;
@@ -784,6 +785,7 @@ body {
 .btn.add {
     background: #0073aa;
     color: #fff;
+	text-decoration:none;
 }
 
 .btn.view {
@@ -793,6 +795,10 @@ body {
 
 .btn.download {
     background: #d63638;
+    color: #fff;
+}
+.btn.download-all {
+    background: #2144be;
     color: #fff;
 }
 

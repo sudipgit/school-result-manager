@@ -241,3 +241,18 @@ function srm_get_subject_title($id){
     }
 }
 
+function srm_get_subject($id){
+    global $wpdb;
+    $table    = $wpdb->prefix . 'srm_subjects';
+    $row = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id)
+    );
+
+    if ($row) {
+        return  $row;
+        
+    }
+    return false;
+}
+
+

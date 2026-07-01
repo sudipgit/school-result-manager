@@ -2,7 +2,7 @@
 /**
  * Plugin Name: School Result Manager
  * Description: Manage SSC/Bangladesh secondary school results, generate marksheets, and PDFs.
- * Version: 1.1
+ * Version: 1.0
  * Author: Your Name
  */
 
@@ -38,7 +38,7 @@ function srm_teacher_login_redirect($redirect_to, $request, $user) {
         // Check if user has the 'teacher' role
         if (in_array('teacher', $user->roles)) {
             // Change this to the URL you want
-            return site_url('/teacher-profile/');
+            return site_url('/management/dashboard/');
         }
     }
 

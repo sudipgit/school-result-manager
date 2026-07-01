@@ -77,9 +77,11 @@ $classes = [
     7 => 'Seven',
     8 => 'Eight',
     9 => 'Nine',
-    10 => 'Ten'
+    101 => 'Ten Science',
+    102 => 'Ten Commerce',
+    103 => 'Ten Human'
 ];
-
+ 
 $groups = ['Science','Commerce','Humanities'];
 
 $selected_classes = $subject ? explode(',', $subject->class) : [];

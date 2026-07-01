@@ -1,5 +1,5 @@
 <?php
-if (!current_user_can('edit_posts')) exit;
+
 global $wpdb;
 
 $table = $wpdb->prefix . 'srm_students';

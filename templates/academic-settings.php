@@ -1,5 +1,4 @@
 <?php
-if (!current_user_can('edit_posts')) exit;
 
 
 /* ---------- HANDLE FORM SUBMISSION ---------- */

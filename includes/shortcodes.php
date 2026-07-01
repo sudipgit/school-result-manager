@@ -15,7 +15,22 @@ function srm_add_student_shortcode() {
     include SRM_PLUGIN_PATH . 'templates/add-student.php';
     return ob_get_clean();
 }
-add_shortcode('srm_add_student','srm_add_student_shortcode');
+
+function srm_assign_subject_shortcode() {
+     
+    ob_start();
+    include SRM_PLUGIN_PATH . 'templates/teacher-subject-assign.php';
+    return ob_get_clean();
+}
+add_shortcode('srm_asign_subject','srm_assign_subject_shortcode');
+
+function srm_subject_assignment_shortcode() {
+     
+    ob_start();
+    include SRM_PLUGIN_PATH . 'templates/subject-assignments.php';
+    return ob_get_clean();
+}
+add_shortcode('srm_subject_assignment','srm_subject_assignment_shortcode');
 
 function srm_update_student_csv_shortcode() {
      
@@ -45,6 +60,18 @@ add_shortcode('srm_dashboard', function() {
     
     return ob_get_clean();
 });
+add_shortcode('srm_add_marks_dashboard', function() {
+    ob_start();
+    include SRM_PLUGIN_PATH . 'frontend/add-marks-deshboard.php';
+    return ob_get_clean();
+});
+
+add_shortcode('srm_download_marksheet_dashboard', function() {
+    ob_start();
+    include SRM_PLUGIN_PATH . 'frontend/download-marksheet-deshboard.php';
+    return ob_get_clean();
+});
+
 
 add_shortcode('srm_add_marks', function() {
     ob_start();

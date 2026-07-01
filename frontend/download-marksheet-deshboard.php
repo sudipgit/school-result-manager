@@ -75,7 +75,7 @@ foreach ($assignments as $key => $a) {
         <div><img src="<?php echo $photos[$current_user->ID];?>" width="150"/></div> 
         <h2><?= esc_html($current_user->display_name) ?></h2>
         <p style="color:#fff;">Email: <?= esc_html($current_user->user_email) ?></p>
-         <ul>
+          <ul>
             <li><a href="https://rtnb.edu.bd/management/dashboard/">Dashboard</a></li>
             <li><a href="https://rtnb.edu.bd/management/add-marks-dashboard/">Add Marks</a></li>
             <li><a href="https://rtnb.edu.bd/management/download-marksheet-dashboard/">Download Marksheet</a></li>
@@ -92,22 +92,28 @@ foreach ($assignments as $key => $a) {
                  <?php foreach ($assignments as $a): ?>
                     <div class="mark-card">
                         <div class="card-header" style="text-align:center;">
+                          
                             <h3><?= esc_html($a->class_name) ?> - <?= esc_html($a->section_name) ?></h3>
                             <span><?= esc_html($a->subject_name) ?></span>
                         </div>
 
                         <div class="card-actions">
-                            <a href="<?= site_url("/management/add-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn add">
-                                Add Mark
-                            </a>
-
-                            <a href="<?= site_url("/management/view-marks/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}") ?>" class="btn view">
-                                View Mark
-                            </a>
+                          
 
                             <a href="<?= site_url("/management/download-teacher-marksheet/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}&teacher={$current_user->ID}") ?>" class="btn download">
-                                Download MarkSheet
+                                Download 
                             </a>
+                            <a href="<?= site_url("/management/download-teacher-marksheet/?class={$a->class_no}&section={$a->section_id}&subject={$a->subject_id}&teacher={$current_user->ID}&col=2") ?>" class="btn download">
+                                Download 2 Column
+                            </a><br/>
+                            <?php if($a->class_no==101 || ($a->class_no==9 && $a->section_id==10)){?>
+                             <a href="<?= site_url("/management/download-teacher-marksheet/?class={$a->class_no}&section=all&subject={$a->subject_id}&teacher={$current_user->ID}") ?>" class="btn download-all">
+                                Download All 
+                            </a>
+                            <a href="<?= site_url("/management/download-teacher-marksheet/?class={$a->class_no}&section=all&subject={$a->subject_id}&teacher={$current_user->ID}&col=2") ?>" class="btn download-all">
+                                Download All 2 Column
+                            </a>
+                        <?php } ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

@@ -1,4 +1,5 @@
 <?php
+
 add_filter('wp_nav_menu_objects', 'hide_submenu_for_guest', 10, 2);
 
 function hide_submenu_for_guest($items, $args) {
@@ -14,7 +15,7 @@ function hide_submenu_for_guest($items, $args) {
     return $items;
 }
 function srm_get_sessions(){
-    $sessions=['2024','2025','2026'];
+    $sessions=['2024','2025','2026','2027'];
     return $sessions;
 }
 
@@ -59,25 +60,96 @@ function srm_get_teacher_photos(){
     return $list;
 }
 
-function srm_render_marks_table($rows) {
+function srm_render_marks_table($rows,$subject) {
     ?>
     <table class="marks-table">
         <thead>
             <tr>
                 <th>Roll</th>
-                <th>Student Name</th>
-                <th>CQ</th>
-                <th>MCQ</th>
-                <th>Total</th>
+                <th style="min-width:130px">Student Name</th>
+                 <?php if ($subject->mcq_marks > 0): ?><th>MCQ (<?= $subject->mcq_marks ?>)</th><?php endif; ?>
+                <?php if ($subject->cq_marks > 0): ?><th>CQ (<?= $subject->cq_marks ?>)</th><?php endif; ?>
+                <?php if ($subject->practical_marks > 0): ?><th>Prac (<?= $subject->practical_marks ?>)</th><?php endif; ?>
+                <th>Total (<?= $subject->full_marks ?>)</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach ($rows as $mark): ?>
             <tr>
                 <td><?= esc_html($mark->roll) ?></td>
-                <td><?= esc_html($mark->student_name) ?></td>
-                <td><?= esc_html($mark->cq) ?></td>
+                <td class="name"><?= esc_html($mark->student_name) ?></td>
+          <?php if ($subject->mcq_marks > 0) {?>
                 <td><?= esc_html($mark->mcq) ?></td>
+                <?php } ?>
+
+<?php if ($subject->cq_marks > 0) {?>
+                <td><?= esc_html($mark->cq) ?></td>
+                <?php } ?>
+<?php if ($subject->practical_marks > 0) {?>
+                <td><?= esc_html($mark->practical) ?></td>
+                <?php } ?>
+
+
+               
+                <td><strong ><?= esc_html($mark->total) ?></stronpractical_marksg></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    
+    <?php
+}
+
+function srm_render_marks_table2($rows, $subject, $group_by_class = false) {
+    $class_labels = [
+        101 => 'Science',
+        102 => 'Commerce',
+        103 => 'Humanities',
+    ];
+    ?>
+    <table class="marks-table">
+        <thead>
+            <tr>
+                <th>Roll</th>
+                <th style="min-width:130px">Student Name</th>
+                <?php if ($subject->mcq_marks > 0): ?><th>MCQ (<?= $subject->mcq_marks ?>)</th><?php endif; ?>
+                <?php if ($subject->cq_marks > 0): ?><th>CQ (<?= $subject->cq_marks ?>)</th><?php endif; ?>
+                <?php if ($subject->practical_marks > 0): ?><th>Prac (<?= $subject->practical_marks ?>)</th><?php endif; ?>
+                <th>Total (<?= $subject->full_marks ?>)</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        $current_class = null;
+        $col_count = 1 // Roll + Name
+            + ($subject->mcq_marks > 0 ? 1 : 0)
+            + ($subject->cq_marks > 0 ? 1 : 0)
+            + ($subject->practical_marks > 0 ? 1 : 0)
+            + 1; // Total
+
+        foreach ($rows as $mark):
+            // Print class group title row when class changes
+            if ($group_by_class && $mark->class_no !== $current_class):
+                $current_class = $mark->class_no;
+                $label = $class_labels[$current_class] ?? 'Class ' . $current_class;
+                ?>
+                <tr class="class-group-title">
+                    <td></td>
+                    <td colspan="<?= $col_count ?>"><?= esc_html($label) ?></td>
+                </tr>
+            <?php endif; ?>
+            <tr>
+                <td><?= esc_html($mark->roll) ?></td>
+                <td class="name"><?= esc_html($mark->student_name) ?></td>
+                <?php if ($subject->mcq_marks > 0): ?>
+                <td><?= esc_html($mark->mcq) ?></td>
+                <?php endif; ?>
+                <?php if ($subject->cq_marks > 0): ?>
+                <td><?= esc_html($mark->cq) ?></td>
+                <?php endif; ?>
+                <?php if ($subject->practical_marks > 0): ?>
+                <td><?= esc_html($mark->practical) ?></td>
+                <?php endif; ?>
                 <td><strong><?= esc_html($mark->total) ?></strong></td>
             </tr>
         <?php endforeach; ?>
@@ -86,4 +158,3 @@ function srm_render_marks_table($rows) {
     <?php
 }
 ?>
-

@@ -23,6 +23,8 @@ $photos = srm_get_teacher_photos();
       <li><a href="https://rtnb.edu.bd/management/teacher-list/">Teachers</a></li>
       <li><a href="https://rtnb.edu.bd/management/teacher-list/">Teacher Marksheet</a></li>
       <li><a href="">Student Marksheet</a></li>
+      <li><a href="https://rtnb.edu.bd/management/assign-subject/">Assign Subjects</a></li>
+      <li><a href="https://rtnb.edu.bd/management/subject-assignment/">Subject Assignments</a></li>
       <li><a href="https://rtnb.edu.bd/management/settings/">Settings</a></li>
     </ul>
   </div>

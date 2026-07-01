@@ -140,8 +140,8 @@ ob_start();
         <p style="color:#fff;">Email: <?= esc_html($current_user->user_email) ?></p>
         <ul>
             <li><a href="https://rtnb.edu.bd/management/dashboard/">Dashboard</a></li>
-            <li><a href="https://rtnb.edu.bd/management/dashboard/">Add Marks</a></li>
-            <li><a href="https://rtnb.edu.bd/management/dashboard/">Download Marksheet</a></li>
+            <li><a href="https://rtnb.edu.bd/management/add-marks-dashboard/">Add Marks</a></li>
+            <li><a href="https://rtnb.edu.bd/management/download-marksheet-dashboard/">Download Marksheet</a></li>
         </ul>
         
     </div>
@@ -163,8 +163,8 @@ ob_start();
                 <?php
                 $existing = $wpdb->get_row($wpdb->prepare(
                     "SELECT * FROM $marks_table 
-                     WHERE roll=%d AND subject_id=%d AND session=%s AND exam_id=%d",
-                    $s->roll, $subject_id, $session, $exam_id
+                     WHERE class_no=$d AND roll=%d AND subject_id=%d AND session=%s AND exam_id=%d",
+                    $class_no, $s->roll, $subject_id, $session, $exam_id
                 ));
                 ?>
                 <tr>
